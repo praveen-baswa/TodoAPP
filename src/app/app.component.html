@@ -1,0 +1,37 @@
+    <main class="container">
+      <h1>TODO List</h1>
+
+      @if (error) {
+        <div class="error-message" style="color: red; padding: 10px; background: #ffe6e6; border: 1px solid red; border-radius: 4px; margin-bottom: 10px;">
+          {{ error }}
+        </div>
+      }
+
+      <form (ngSubmit)="addTodoItem()" class="add-form">
+        <input
+          type="text"
+          [(ngModel)]="newTitle"
+          name="title"
+          placeholder="Add todo item to the list?"
+          required
+        />
+        <button type="submit" [disabled]="!newTitle.trim()">Add</button>
+      </form>
+
+      @if (todos.length) {
+        <section>
+          <ul>
+            @for (todo of todos; track todo.id) {
+              <li>
+                <span>{{ todo.title }}</span>
+                <button type="button" (click)="deleteTodoItem(todo)">Delete</button>
+              </li>
+            }
+          </ul>
+        </section>
+      } @else {
+        <p>No TODO items yet. Add your first one!</p>
+      }
+    </main>
+    
+   
